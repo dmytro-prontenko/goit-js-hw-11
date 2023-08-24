@@ -45,10 +45,10 @@ async function onFormSubmit(event) {
     // console.log(data);
 
     if (!data.length) {
+      form.reset();
       throw new Error(
         'Sorry, there are no images matching your search query. Please try again.'
       );
-      form.reset();
     }
 
     createCardsMarkup(data);
