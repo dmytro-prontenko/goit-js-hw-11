@@ -39,10 +39,10 @@ async function onFormSubmit(event) {
   query = form.elements.searchQuery.value;
   try {
     const data = await searchImages(query);
-    console.log(totalHits);
-    console.log(data);
+    // console.log(totalHits);
+    // console.log(data);
     maxPage = Math.ceil(totalHits / per_page);
-    console.log(data);
+    // console.log(data);
 
     if (!data) {
       throw new Error(
@@ -81,6 +81,7 @@ function callback(entries, observer) {
         }
 
         createCardsMarkup(data);
+        // if (gallery.innerHTML !== '') {
         const { height: cardHeight } = document
           .querySelector('.gallery')
           .firstElementChild.getBoundingClientRect();
@@ -89,6 +90,7 @@ function callback(entries, observer) {
           top: cardHeight * 1.5,
           behavior: 'smooth',
         });
+        // }
         currentPage += 1;
       } catch (error) {
         Notiflix.Notify.failure(
@@ -152,12 +154,3 @@ function createCardsMarkup(arr) {
 
   lightbox.refresh();
 }
-
-const { height: cardHeight } = document
-  .querySelector('.gallery')
-  .firstElementChild.getBoundingClientRect();
-
-window.scrollBy({
-  top: cardHeight * 2,
-  behavior: 'smooth',
-});
