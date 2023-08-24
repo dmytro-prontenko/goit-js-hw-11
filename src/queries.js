@@ -20,5 +20,6 @@ export async function searchImages(query) {
   const response = await axios.get(url);
   totalHits = response.data.totalHits;
   const resp = response.data.hits;
+  page += 1;
   return resp;
 }
