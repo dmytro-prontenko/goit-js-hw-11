@@ -48,6 +48,7 @@ async function onFormSubmit(event) {
       throw new Error(
         'Sorry, there are no images matching your search query. Please try again.'
       );
+      form.reset();
     }
 
     createCardsMarkup(data);
