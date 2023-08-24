@@ -44,7 +44,7 @@ async function onFormSubmit(event) {
     maxPage = Math.ceil(totalHits / per_page);
     // console.log(data);
 
-    if (!data) {
+    if (!data.length) {
       throw new Error(
         'Sorry, there are no images matching your search query. Please try again.'
       );
