@@ -22,7 +22,8 @@ export async function searchImages(query) {
   totalHits = response.data.totalHits;
 
   const resp = response.data.hits;
-  Notiflix.Notify.info(`Hooray! We found ${response.data.totalHits} images.`);
+  if (page === 1)
+    Notiflix.Notify.info(`Hooray! We found ${response.data.totalHits} images.`);
   page += 1;
   return resp;
 }
