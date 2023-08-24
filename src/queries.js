@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Notiflix from 'notiflix';
 
 const BASE_URL = 'https://pixabay.com/api/';
 export const per_page = 40;
@@ -19,7 +20,9 @@ export async function searchImages(query) {
   const url = `${BASE_URL}?${PARAMS}`;
   const response = await axios.get(url);
   totalHits = response.data.totalHits;
+
   const resp = response.data.hits;
+  Notiflix.Notify.info(`Hooray! We found ${response.data.totalHits} images.`);
   page += 1;
   return resp;
 }
