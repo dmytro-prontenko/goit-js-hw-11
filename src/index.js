@@ -37,6 +37,10 @@ async function onFormSubmit(event) {
   currentPage = 1;
   gallery.innerHTML = '';
   query = form.elements.searchQuery.value;
+  if (!query) {
+    Notiflix.Notify.failure('Please, enter keywords!');
+    return;
+  }
   try {
     const data = await searchImages(query);
     // console.log(totalHits);
