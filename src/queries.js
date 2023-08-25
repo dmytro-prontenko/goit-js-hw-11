@@ -1,15 +1,13 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
-import { query } from './index';
 
 const BASE_URL = 'https://pixabay.com/api/';
 export const per_page = 40;
 let tempQuery = '';
-let query;
 export let totalHits;
 const form = document.querySelector('.search-form');
 
-export async function searchImages(page) {
+export async function searchImages(query, page) {
   const PARAMS = new URLSearchParams({
     key: '39012362-7b13feeec5008368b0a5b12ec',
     per_page,

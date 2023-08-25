@@ -45,7 +45,7 @@ async function onFormSubmit(event) {
     return;
   }
   try {
-    const data = await searchImages(page);
+    const data = await searchImages(query, page);
     maxPage = Math.ceil(totalHits / per_page);
 
     if (!data.length) {
@@ -81,7 +81,7 @@ function callback(entries, observer) {
       }
       page = currentPage + 1;
       try {
-        const data = await searchImages(page);
+        const data = await searchImages(query, page);
         if (!data.length) {
           throw new Error(
             'Sorry, there are no images matching your search query. Please try again.'
