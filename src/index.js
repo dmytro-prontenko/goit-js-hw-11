@@ -39,7 +39,7 @@ async function onFormSubmit(event) {
   currentPage = 1;
   gallery.innerHTML = '';
   // page = 1;
-  query = form.elements.searchQuery.value;
+  query = form.elements.searchQuery.value.trim();
   if (!query) {
     Notiflix.Notify.failure('Please, enter keywords!');
     return;
