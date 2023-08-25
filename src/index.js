@@ -19,8 +19,9 @@ const refs = {
 };
 const { form, gallery, observerTarget } = refs;
 let maxPage = 1;
-let query = '';
+export let query = '';
 let currentPage = 1;
+let page = 1;
 
 const lightbox = new SimpleLightbox('.gallery a');
 
@@ -34,19 +35,18 @@ form.addEventListener('submit', onFormSubmit);
 
 async function onFormSubmit(event) {
   event.preventDefault();
+  page = 1;
   currentPage = 1;
   gallery.innerHTML = '';
+  // page = 1;
   query = form.elements.searchQuery.value;
   if (!query) {
     Notiflix.Notify.failure('Please, enter keywords!');
     return;
   }
   try {
-    const data = await searchImages(query);
-    // console.log(totalHits);
-    // console.log(data);
+    const data = await searchImages(page);
     maxPage = Math.ceil(totalHits / per_page);
-    // console.log(data);
 
     if (!data.length) {
       form.reset();
@@ -57,6 +57,7 @@ async function onFormSubmit(event) {
 
     createCardsMarkup(data);
     // currentPage += 1;
+    // page += 1;
     form.reset();
   } catch (err) {
     Notiflix.Notify.failure(`${err.message}`);
@@ -78,8 +79,9 @@ function callback(entries, observer) {
         );
         return;
       }
+      page = currentPage + 1;
       try {
-        const data = await searchImages(query);
+        const data = await searchImages(page);
         if (!data.length) {
           throw new Error(
             'Sorry, there are no images matching your search query. Please try again.'
@@ -87,17 +89,17 @@ function callback(entries, observer) {
         }
 
         createCardsMarkup(data);
-        // if (gallery.innerHTML !== '') {
+
         const { height: cardHeight } = document
           .querySelector('.gallery')
           .firstElementChild.getBoundingClientRect();
 
         window.scrollBy({
-          top: cardHeight * 1.5,
+          top: cardHeight * 2,
           behavior: 'smooth',
         });
-        // }
         currentPage += 1;
+        // }
       } catch (error) {
         Notiflix.Notify.failure(
           `Sorry, there are no images matching your search query. Please try again.`
@@ -115,7 +117,6 @@ observer.observe(observerTarget);
 │ =========================
 */
 function createCardsMarkup(arr) {
-  // console.log(arr);
   const galleryImages = arr
     .map(
       ({
